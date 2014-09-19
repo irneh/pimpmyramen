@@ -40,8 +40,9 @@ def index():
     k.set_contents_from_filename(images.path(localname))
     os.remove(images.path(localname))
     ## Return URL to S3 zipfile
-    url = 'http://' + S3_BUCKET + '/' + os.path.basename(localname)
-    return f.render_template('download.html', url=url)
+    #url = 'http://' + S3_BUCKET + '/' + os.path.basename(images.path(localname))
+    url = 'http://' + 's3.pmr.workforpizza.com.s3-website-us-east-1.amazonaws.com' + '/' + os.path.basename(images.path(localname))
+    return f.render_template('list.html', url=url)
 
 @app.route('/api', methods=['GET', 'POST'])
 def api():
