@@ -7,6 +7,8 @@ import time
 import urlparse
 import uuid
 
+import json
+
 app = f.Flask(__name__)
 app.debug = os.getenv('APP_DEBUG')
 
@@ -25,6 +27,12 @@ c = boto.connect_s3()
 b = c.get_bucket(S3_BUCKET)
 k = boto.s3.key.Key(b)
 
+def now():
+  return int(time.time())
+
+def img_url(s):
+  return 'http://' + S3_BUCKET + '/' + s
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
   if f.request.method == 'GET':
@@ -39,21 +47,24 @@ def index():
     k.key = os.path.basename(localname)
     k.set_contents_from_filename(images.path(localname))
     os.remove(images.path(localname))
+    ## Store in DB
+    key = 'key:' + str(r.incr('key'))
+    r.lpush('keys', key)
+    r.lpush('images', localname)
+    r.hmset(key, {'filename': localname, 'inserted': now()})
     ## Return URL to S3 zipfile
-    #url = 'http://' + S3_BUCKET + '/' + os.path.basename(images.path(localname))
-    url = 'http://' + 's3.pmr.workforpizza.com.s3-website-us-east-1.amazonaws.com' + '/' + os.path.basename(images.path(localname))
+    url = img_url(os.path.basename(images.path(localname)))
     return f.render_template('list.html', url=url)
 
-@app.route('/api', methods=['GET', 'POST'])
-def api():
-  t = r.get('t')
-  t = time.asctime(time.gmtime(float(t)))
-  return t
+@app.route('/api/list', methods=['GET'])
+def api_list():
+   images = r.lrange('images', 0, 9)
+   urls = map(img_url, images)
+   return json.dumps(urls)
 
-@app.route('/set', methods=['GET', 'POST'])
-def set():
-  r.set('t', time.time())
-  return(f.redirect(f.url_for('index')))
+@app.route('/mithril', methods=['GET'])
+def list2():
+   return f.render_template('mithril.html')
 
 if __name__ == '__main__':
   app.run()
