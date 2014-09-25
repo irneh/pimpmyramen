@@ -1,0 +1,63 @@
+body {
+	font-family: 'Montserrat', sans-serif;
+	background-color: #EEE;
+}
+
+header {
+	background: #f6ebb8 url(../images/header-bg.png);
+	height: 11em;
+	position: relative;
+}
+
+.masthead {
+	margin: 0.25em 0 0 0;
+	padding: 0.5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+}
+
+.subtitle {
+	font-size: 1.33em;
+	text-transform:uppercase;
+	margin-top: -0.75em;
+	color: #c7b673;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
+}
+
+nav {
+	background-color: #e1bd49;	
+	padding: 1em;
+}
+
+.modal-header {
+	background-color: #f6ebb8;
+	color: #c7b673;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);	
+}
+
+#main {
+	background-color: #EEE;
+}
+
+#posts {
+	margin: 1.5em auto;
+}
+
+.post {
+	background-color: #fff;
+	padding: 0.5em;
+	border-radius:5px;
+	margin: 1.25em;
+}
+
+footer {
+	background-color:#f6ebb8;	
+}
+
+.footer-nav {
+	padding: 3em 0;	
+	color: #c7b673;
+}
