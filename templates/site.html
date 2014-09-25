@@ -49,30 +49,29 @@
     <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+          <form role="form" method='POST' enctype=multipart/form-data action='/'>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h3 class="modal-title" id="myModalLabel">Upload Ramen</h3>
           </div>
           <div class="modal-body">
-          <form role="form">
-            <div class="form-group">
-              <label for="exampleInputFile">Choose a photo (jpg, png or gif)</label>
-              <input type="file" id="exampleInputFile">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Description</label>
-             <textarea class="form-control" rows="3"></textarea>
-            </div>
+              <div class="form-group">
+                <label for="exampleInputFile">Choose a photo (jpg, png or gif)</label>
+                <input type="file" id="exampleInputFile" name="image">
+              </div>
+              <div class="form-group">
+                <label for="Description">Description</label>
+               <textarea class="form-control" rows="3"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+          </div>
           </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Submit</button>
-          </div>
         </div>
       </div>
-    </div>  
-    
+    </div>
 
 {% block body %}
 {% endblock %}
