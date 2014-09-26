@@ -18,7 +18,7 @@ r = redis.Redis(host=url.hostname, port=url.port, password=url.password)
 
 ## Flask-Uploads config.
 app.config['UPLOADED_IMAGES_DEST'] = 'tmp'
-images = fu.UploadSet('images', ('gif', 'bmp', 'png', 'jpg', 'jpeg'))
+images = fu.UploadSet('images', fu.IMAGES)
 fu.configure_uploads(app, (images))
 
 ## S3.
