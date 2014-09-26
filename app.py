@@ -3,7 +3,6 @@ import flask as f
 import flask.ext.uploads as fu
 import os
 import redis
-import string
 import time
 import urlparse
 import uuid
@@ -42,7 +41,7 @@ def index():
     ## Process incoming args
     img = f.request.files['image']
     ## Save incoming file to Flask-Uploads collection and local disk.
-    localname = str(uuid.uuid4()) + string.lower(os.path.splitext(img.filename)[1])
+    localname = str(uuid.uuid4()) + os.path.splitext(img.filename)[1].lower()
     images.save(img, None, localname)
     ## Move file to S3
     k.key = os.path.basename(localname)
