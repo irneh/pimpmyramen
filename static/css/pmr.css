@@ -3,10 +3,35 @@ body {
 	background-color: #EEE;
 }
 
-header {
-	background: #f6ebb8 url(../images/header-bg.png);
-	height: 11em;
-	position: relative;
+@media screen and (min-width: 687px) {
+	.header-large{
+		background: #f6ebb8 url(../images/header-bg.png);
+		height: 11em;
+		position: relative;
+	}
+
+	.header-small {
+		display: none;
+	}
+
+}
+
+@media screen and (max-width: 686px) {
+
+	.header-large {
+		display: none;
+	}
+
+	.header-small{
+		background: #f6ebb8 url(../images/header-bg.png);
+		height: 3em;	
+	}
+
+	.header-small img {
+		margin: 0 auto;
+		padding: 0.5em;
+	}
+
 }
 
 .masthead {
@@ -43,14 +68,31 @@ nav {
 }
 
 #posts {
-	margin: 1.5em auto;
+	margin: 0 auto;
 }
 
-.post {
-	background-color: #fff;
-	padding: 0.5em;
-	border-radius:5px;
-	margin: 1.25em;
+li.post {
+	padding: 0;
+	margin: 1.5em;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+	width: 230px;
+	vertical-align: top;	
+}
+
+li.post h5 {
+	color: #c7b673;
+	text-align:left;
+	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
+	margin: 0.5em;	
+}
+
+p.description {
+	color: #666;
+	font-size: 0.78571em; /*About 11px*/
+	font-style:italic;
+	margin: 0.5em;
+	text-align: left;
+	height:3.5em;
 }
 
 footer {
