@@ -36,7 +36,9 @@ def img_url(s):
 @app.route('/', methods=['GET', 'POST'])
 def index():
   if f.request.method == 'GET':
-    return f.render_template('index.html')
+    files = r.lrange('images', 0, 9)
+    urls = map(img_url, files)
+    return f.render_template('index.html', urls=urls)
   else:
     ## Process incoming args
     img = f.request.files['image']
@@ -53,12 +55,15 @@ def index():
     r.lpush('images', localname)
     r.hmset(key, {'filename': localname, 'inserted': now()})
     ## Return URL to S3 zipfile
-    url = img_url(os.path.basename(images.path(localname)))
-    return f.render_template('list.html', url=url)
+    files = r.lrange('images', 0, 9)
+    urls = map(img_url, files)
+    return f.render_template('index.html', urls=urls)
 
-@app.route('/api/list', methods=['GET'])
-def api_list():
-   images = r.lrange('images', 0, 9)
+@app.route('/api/list/<int:index>', methods=['GET'])
+def api_list(index):
+   first = 0 + 10 * index
+   last = 9 + 10 * index
+   images = r.lrange('images', first, last)
    urls = map(img_url, images)
    return json.dumps(urls)
 

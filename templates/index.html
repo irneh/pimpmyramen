@@ -1,3 +1,17 @@
 {% extends "site.html" %}
 {% block body %}
+
+<!---Ramen Photos-->	
+<div class="container" id="main">
+  <ul class="list-inline" id="posts">
+    {% for url in urls %}
+      <li class="post">
+        <img src= '{{ url }}' style="width: 230px; height: 200px;"></img>
+        <h5>Ramen One</h5>
+        <p class="description">spicy, cayenne, broccoli, green onion, egg</p>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
 {% endblock %}
