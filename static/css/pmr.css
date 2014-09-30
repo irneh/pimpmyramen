@@ -6,8 +6,12 @@ body {
 @media screen and (min-width: 687px) {
 	.header-large{
 		background: #f6ebb8 url(../images/header-bg.png);
-		height: 11em;
-		position: relative;
+		text-align: center;
+		padding: 0.25em 0;
+	}
+
+	.header-large img {
+		display: inline-block;
 	}
 
 	.header-small {
@@ -34,20 +38,16 @@ body {
 
 }
 
-.masthead {
-	margin: 0.25em 0 0 0;
-	padding: 0.5em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
+.title {
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 1.25em;
 }
 
 .subtitle {
 	font-size: 1.33em;
 	text-transform:uppercase;
-	margin-top: -0.75em;
+	margin-top: -0.5em;
 	color: #c7b673;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
 }
