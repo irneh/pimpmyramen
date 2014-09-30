@@ -86,7 +86,7 @@
     var scroll = true;
     var nextPage = 1;
     $(window).scroll(function() {
-      if(scroll && $(window).scrollTop() == $(document).height() - $(window).height()) {
+      if(scroll && $(window).scrollTop() + $(window).height() >= $(document).height()) {
         scroll = false;
         $('#loadmoreajaxloader').show();
         $.ajax({
