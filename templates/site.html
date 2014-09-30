@@ -61,7 +61,7 @@
               </div>
               <div class="form-group">
                 <label for="Description">Description</label>
-               <textarea class="form-control" rows="3"></textarea>
+               <textarea class="form-control" rows="3" name="description"></textarea>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -73,39 +73,8 @@
       </div>
     </div>
 
-    <!---Ramen Photos-->	
-    <div class="container" id="main">
-    <ul class="list-inline" id="posts">
-      {% block content %}
-      {% endblock %}
-    </ul>
-    <div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
-    </div>
-
-    <script type="text/javascript">
-    var scroll = true;
-    var nextPage = 1;
-    $(window).scroll(function() {
-      if(scroll && $(window).scrollTop() + $(window).height() >= $(document).height()) {
-        scroll = false;
-        $('#loadmoreajaxloader').show();
-        $.ajax({
-          url: "/list/" + nextPage,
-          success: function(html) {
-            $('#loadmoreajaxloader').hide();
-            if(html) {
-              $("#posts").append(html);
-              nextPage++;
-              scroll = true;
-            }
-            else {
-              $('#posts').append('<center>No more Ramens to show.</center>');
-            }
-          }
-        });
-      }
-    });
-    </script>
+  {% block content %}
+  {% endblock %}
 
   <!-- JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

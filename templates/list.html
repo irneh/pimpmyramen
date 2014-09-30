@@ -1,10 +1,40 @@
-{% if not standalone %}{% extends "site.html" %}{% endif %}
+{% extends "site.html" %}
 {% block content %}
-    {% for url in urls %}
-      <li class="post">
-        <img src= '{{ url }}' style="width: 230px; height: 200px;"></img>
-        <p>Ramen One</p>
-        <p class="description">spicy, cayenne, broccoli, green onion, egg</p>
-      </li>
-    {% endfor %}
+
+<!---Ramen Photos-->	
+<div class="container" id="main">
+<ul class="list-inline" id="posts">
+
+{% include "grid.html" %}
+
+</ul>
+<div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
+</div>
+
+<script type="text/javascript">
+var scroll = true;
+var nextPage = 1;
+$(window).scroll(function() {
+  if(scroll && $(window).scrollTop() + $(window).height() >= $(document).height()) {
+    scroll = false;
+    $('#loadmoreajaxloader').show();
+    $.ajax({
+      url: "/list/" + nextPage,
+      success: function(html) {
+        $('#loadmoreajaxloader').hide();
+        if(html) {
+          $("#posts").append(html);
+          nextPage++;
+          scroll = true;
+        }
+        else {
+          $('#posts').append('<center>No more Ramens to show.</center>');
+        }
+      }
+    });
+  }
+});
+</script>
+
 {% endblock content %}
+

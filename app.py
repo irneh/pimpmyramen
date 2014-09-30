@@ -41,6 +41,7 @@ def index():
   else:
     ## Process incoming args
     img = f.request.files['image']
+    desc = f.request.form['description'].strip()
     ## Save incoming file to Flask-Uploads collection and local disk.
     localname = str(uuid.uuid4()) + os.path.splitext(img.filename)[1].lower()
     images.save(img, None, localname)
@@ -57,7 +58,9 @@ def index():
     key = 'key:' + str(r.incr('key'))
     r.lpush('keys', key)
     r.lpush('images', localname)
-    r.hmset(key, {'filename': localname, 'inserted': now()})
+    r.hmset(key, {'filename': localname,
+      'description': desc,
+      'inserted': now()})
 
     files = r.lrange('images', 0, 9)
     urls = map(img_url, files)
@@ -70,13 +73,18 @@ def list(index):
    images = r.lrange('images', first, last)
    if images:
      urls = map(img_url, images)
-     return f.render_template('list.html', urls=urls, standalone=True)
+     return f.render_template('grid.html', urls=urls)
    else:
      return ""
 
-@app.route('/detail', methods=['GET'])
-def detail():
-  return f.render_template('detail.html')
+@app.route('/detail/<index>', methods=['GET'])
+def detail(index):
+  obj = r.hgetall('key:' + index)
+  if obj:
+    obj['url'] = img_url(obj['filename'])
+    return f.render_template('detail.html', obj=obj)
+  else:
+    return "Not found.", 404
 
 if __name__ == '__main__':
   app.run()
