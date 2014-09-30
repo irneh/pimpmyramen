@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!--Custom CSS-->
   <link rel="stylesheet" type="text/css" href="/static/css/pmr.css">   
-  <script src='/static/js/mithril.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>    
 </head>
 <body>
 
@@ -77,11 +77,37 @@
       </div>
     </div>
 
-{% block content %}
-{% endblock %}
+    <div id="imageList">
+    {% block content %}
+    {% endblock %}
+    </div>
+    <script type="text/javascript">
+    var nextPage = 1;
+    $(window).scroll(function()
+    {
+        if($(window).scrollTop() == $(document).height() - $(window).height())
+        {
+            //$('div#loadmoreajaxloader').show();
+            $.ajax({
+            url: "/list/" + nextPage,
+            success: function(html)
+            {
+                if(html)
+                {
+                    $("#imageList").append(html);
+                    //$('div#loadmoreajaxloader').hide();
+                    nextPage++;
+                }else
+                {
+                    $('div#imageList').html('<center>No more Ramens to show.</center>');
+                }
+            }
+            });
+        }
+    });
+    </script>
 
   <!-- JavaScript -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>    
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
