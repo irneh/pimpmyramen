@@ -68,8 +68,11 @@ def list(index):
    first = 0 + (10 * index)
    last = 9 + (10 * index)
    images = r.lrange('images', first, last)
-   urls = map(img_url, images)
-   return f.render_template('list.html', urls=urls, standalone=True)
+   if images:
+     urls = map(img_url, images)
+     return f.render_template('list.html', urls=urls, standalone=True)
+   else:
+     return None
 
 if __name__ == '__main__':
   app.run()
