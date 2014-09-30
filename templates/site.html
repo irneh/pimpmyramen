@@ -78,8 +78,8 @@
     <ul class="list-inline" id="posts">
       {% block content %}
       {% endblock %}
-       <div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
     </ul>
+    <div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
     </div>
 
     <script type="text/javascript">
@@ -92,9 +92,9 @@
         $.ajax({
           url: "/list/" + nextPage,
           success: function(html) {
+            $('#loadmoreajaxloader').hide();
             if(html) {
               $("#posts").append(html);
-              $('div#loadmoreajaxloader').hide();
               nextPage++;
               scroll = true;
             }
