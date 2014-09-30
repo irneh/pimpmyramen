@@ -38,7 +38,7 @@ def index():
   if f.request.method == 'GET':
     files = r.lrange('images', 0, 9)
     urls = map(img_url, files)
-    return f.render_template('index.html', urls=urls)
+    return f.render_template('list.html', urls=urls)
   else:
     ## Process incoming args
     img = f.request.files['image']
@@ -54,22 +54,18 @@ def index():
     r.lpush('keys', key)
     r.lpush('images', localname)
     r.hmset(key, {'filename': localname, 'inserted': now()})
-    ## Return URL to S3 zipfile
+
     files = r.lrange('images', 0, 9)
     urls = map(img_url, files)
-    return f.render_template('index.html', urls=urls)
+    return f.render_template('list.html', urls=urls)
 
-@app.route('/api/list/<int:index>', methods=['GET'])
-def api_list(index):
-   first = 0 + 10 * index
-   last = 9 + 10 * index
+@app.route('/list/<int:index>', methods=['GET'])
+def list(index):
+   first = 0 + (10 * index)
+   last = 9 + (10 * index)
    images = r.lrange('images', first, last)
    urls = map(img_url, images)
-   return json.dumps(urls)
-
-@app.route('/mithril', methods=['GET'])
-def list2():
-   return f.render_template('mithril.html')
+   return f.render_template('list.html', urls=urls, standalone=True)
 
 if __name__ == '__main__':
   app.run()

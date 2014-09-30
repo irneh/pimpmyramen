@@ -1,6 +1,5 @@
-{% extends "site.html" %}
-{% block body %}
-
+{% if not standalone %}{% extends "site.html" %}{% endif %}
+{% block content %}
 <!---Ramen Photos-->	
 <div class="container" id="main">
   <ul class="list-inline" id="posts">
@@ -13,5 +12,4 @@
     {% endfor %}
   </ul>
 </div>
-
-{% endblock %}
+{% endblock content %}
