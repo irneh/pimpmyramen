@@ -72,7 +72,11 @@ def list(index):
      urls = map(img_url, images)
      return f.render_template('list.html', urls=urls, standalone=True)
    else:
-     return None
+     return ""
+
+@app.route('/detail', methods=['GET'])
+def detail():
+  return f.render_template('detail.html')
 
 if __name__ == '__main__':
   app.run()

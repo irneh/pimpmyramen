@@ -84,11 +84,12 @@
 
     <script type="text/javascript">
     var nextPage = 1;
+    var scrollMore = true;
     $(window).scroll(function()
     {
-        if($(window).scrollTop() >= $(document).height() - $(window).height() - 60)
+        if(scrollMore && $(window).scrollTop() == $(document).height() - $(window).height())
         {
-            $('div#loadmoreajaxloader').show();
+            $('#loadmoreajaxloader').show();
             $.ajax({
             url: "/list/" + nextPage,
             success: function(html)
@@ -100,7 +101,8 @@
                     nextPage++;
                 }else
                 {
-                    $('div#posts').html('<center>No more Ramens to show.</center>');
+                    scrollMore = false;
+                    $('#posts').append('<center>No more Ramens to show.</center>');
                 }
             }
             });
