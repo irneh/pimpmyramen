@@ -45,9 +45,10 @@ def index():
     localname = str(uuid.uuid4()) + os.path.splitext(img.filename)[1].lower()
     images.save(img, None, localname)
     ## Resize
-    wimg = wi.Image(filename=images.path(localname))
-    wimg.sample(1024, 768)
-    wimg.save(filename=images.path(localname))
+    if os.path.splitext(img.filename)[1].lower() == 'gif':
+      wimg = wi.Image(filename=images.path(localname))
+      wimg.sample(1024, 768)
+      wimg.save(filename=images.path(localname))
     ## Move file to S3
     k.key = os.path.basename(localname)
     k.set_contents_from_filename(images.path(localname))
