@@ -77,10 +77,13 @@
       </div>
     </div>
 
-    <div id="imageList">
+    <!---Ramen Photos-->	
+    <div class="container" id="main">
+    <ul class="list-inline" id="posts">
       {% block content %}
       {% endblock %}
        <div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
+    </ul>
     </div>
 
     <script type="text/javascript">
@@ -96,12 +99,12 @@
             {
                 if(html)
                 {
-                    $("#imageList").append(html);
+                    $("#posts").append(html);
                     $('div#loadmoreajaxloader').hide();
                     nextPage++;
                 }else
                 {
-                    $('div#imageList').html('<center>No more Ramens to show.</center>');
+                    $('div#posts').html('<center>No more Ramens to show.</center>');
                 }
             }
             });
