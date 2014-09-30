@@ -3,7 +3,7 @@
 <html lang='en'>
 <head>
   <meta charset='utf-8'>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <title>Pimp my Ramen</title>
   <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     <!-- Latest compiled and minified CSS -->
@@ -86,7 +86,7 @@
     var nextPage = 1;
     $(window).scroll(function()
     {
-        if($(window).scrollTop() == $(document).height() - $(window).height())
+        if($(window).scrollTop() >= $(document).height() - $(window).height() - 60)
         {
             $('div#loadmoreajaxloader').show();
             $.ajax({
