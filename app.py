@@ -86,10 +86,10 @@ def list(index):
 
 @app.route('/detail/<index>', methods=['GET'])
 def detail(index):
-  obj = r.hgetall('key:' + index)
-  if obj:
-    obj['url'] = img_url(obj['filename'])
-    return f.render_template('detail.html', obj=obj)
+  ramen = r.hgetall('ramen:' + index)
+  if ramen:
+    ramen['url'] = img_url(ramen['filename'])
+    return f.render_template('detail.html', ramen=ramen)
   else:
     return "Not found.", 404
 
