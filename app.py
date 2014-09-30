@@ -32,12 +32,22 @@ def now():
 def img_url(s):
   return 'http://' + S3_BUCKET + '/' + s
 
+def get_ramens(first, last):
+  keys = r.lrange('keys', first, last)
+  objects = []
+  for key in keys:
+    ramen = r.hgetall(key)
+    id = key.split(':')[1]
+    url = img_url(ramen['filename'])
+    description = 'description' in ramen.keys() and ramen['description'] or ''
+    objects.append({'id': id, 'url': url, 'description': description})
+  return objects
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
   if f.request.method == 'GET':
-    files = r.lrange('images', 0, 9)
-    urls = map(img_url, files)
-    return f.render_template('list.html', urls=urls)
+    objects = get_ramens(0, 9)
+    return f.render_template('list.html', objects=objects)
   else:
     ## Process incoming args
     img = f.request.files['image']
@@ -55,25 +65,22 @@ def index():
     k.set_contents_from_filename(images.path(localname))
     os.remove(images.path(localname))
     ## Store in DB
-    key = 'key:' + str(r.incr('key'))
+    key = 'ramen:' + str(r.incr('key'))
     r.lpush('keys', key)
-    r.lpush('images', localname)
+    r.lpush('ramens', localname)
     r.hmset(key, {'filename': localname,
       'description': desc,
       'inserted': now()})
-
-    files = r.lrange('images', 0, 9)
-    urls = map(img_url, files)
-    return f.render_template('list.html', urls=urls)
+    objects = get_ramens(0, 9)
+    return f.render_template('list.html', objects=objects)
 
 @app.route('/list/<int:index>', methods=['GET'])
 def list(index):
    first = 0 + (10 * index)
    last = 9 + (10 * index)
-   images = r.lrange('images', first, last)
-   if images:
-     urls = map(img_url, images)
-     return f.render_template('grid.html', urls=urls)
+   ramens = get_ramens(first, last)
+   if ramens:
+     return f.render_template('grid.html', objects=ramens)
    else:
      return ""
 

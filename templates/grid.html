@@ -1,7 +1,9 @@
-{% for url in urls %}
+{% for object in objects %}
   <li class="post">
-    <img src= '{{ url }}' style="width: 230px; height: 200px;"></img>
-    <p>Ramen One</p>
-    <p class="description">spicy, cayenne, broccoli, green onion, egg</p>
+  <a href="/detail/{{object.id}}">
+    <img src= "{{ object.url }}" style="width: 230px; height: 200px;"></img>
+  </a>
+    <p>Ramen {{ object.id }}</p>
+    <p class="description">{{ object.description }}</p>
   </li>
 {% endfor %}
