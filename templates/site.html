@@ -88,9 +88,9 @@
 
     <script type="text/javascript">
     var nextPage = 1;
-    $(document).scroll(function()
+    $(window).scroll(function()
     {
-        if($(window).scrollTop() == $(window).height() - $(document).height())
+        if($(window).scrollTop() >= $(document).height() - $(window).height() - 60)
         {
             $('div#loadmoreajaxloader').show();
             $.ajax({
