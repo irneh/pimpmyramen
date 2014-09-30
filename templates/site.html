@@ -83,30 +83,27 @@
     </div>
 
     <script type="text/javascript">
+    var scroll = true;
     var nextPage = 1;
-    var scrollMore = true;
-    $(window).scroll(function()
-    {
-        if(scrollMore && $(window).scrollTop() == $(document).height() - $(window).height())
-        {
-            $('#loadmoreajaxloader').show();
-            $.ajax({
-            url: "/list/" + nextPage,
-            success: function(html)
-            {
-                if(html)
-                {
-                    $("#posts").append(html);
-                    $('div#loadmoreajaxloader').hide();
-                    nextPage++;
-                }else
-                {
-                    scrollMore = false;
-                    $('#posts').append('<center>No more Ramens to show.</center>');
-                }
+    $(window).scroll(function() {
+      if(scroll && $(window).scrollTop() == $(document).height() - $(window).height()) {
+        scroll = false;
+        $('#loadmoreajaxloader').show();
+        $.ajax({
+          url: "/list/" + nextPage,
+          success: function(html) {
+            if(html) {
+              $("#posts").append(html);
+              $('div#loadmoreajaxloader').hide();
+              nextPage++;
+              scroll = true;
             }
-            });
-        }
+            else {
+              $('#posts').append('<center>No more Ramens to show.</center>');
+            }
+          }
+        });
+      }
     });
     </script>
 
