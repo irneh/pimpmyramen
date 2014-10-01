@@ -58,7 +58,7 @@ def index():
     ## Resize
     if os.path.splitext(img.filename)[1].lower() != 'gif':
       wimg = wi.Image(filename=images.path(localname))
-      wimg.sample(1024, 768)
+      wimg.transform(resize='1024x1024>')
       wimg.save(filename=images.path(localname))
     ## Move file to S3
     k.key = os.path.basename(localname)
