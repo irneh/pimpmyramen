@@ -56,7 +56,7 @@ def index():
     localname = str(uuid.uuid4()) + os.path.splitext(img.filename)[1].lower()
     images.save(img, None, localname)
     ## Resize
-    if os.path.splitext(img.filename)[1].lower() == 'gif':
+    if os.path.splitext(img.filename)[1].lower() != 'gif':
       wimg = wi.Image(filename=images.path(localname))
       wimg.sample(1024, 768)
       wimg.save(filename=images.path(localname))
