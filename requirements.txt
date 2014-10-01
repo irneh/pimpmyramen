@@ -5,7 +5,9 @@ MarkupSafe==0.23
 Wand==0.3.8
 Werkzeug==0.9.6
 boto==2.32.1
+elasticsearch==1.2.0
 gunicorn==19.1.1
 itsdangerous==0.24
 redis==2.10.3
+urllib3==1.9.1
 wsgiref==0.1.2
