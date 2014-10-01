@@ -1,4 +1,5 @@
 import boto
+import elasticsearch
 import flask as f
 import flask.ext.uploads as fu
 import os
@@ -10,6 +11,11 @@ import wand.image as wi
 
 app = f.Flask(__name__)
 app.debug = os.getenv('APP_DEBUG')
+
+## Elastic Search
+es = elasticsearch.Elasticsearch(os.getenv('BONSAI_URL'))
+es_index = 'index'
+es_doctype = 'json'
 
 ## Redis.
 url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
@@ -56,7 +62,8 @@ def index():
     localname = str(uuid.uuid4()) + os.path.splitext(img.filename)[1].lower()
     images.save(img, None, localname)
     ## Resize
-    if os.path.splitext(img.filename)[1].lower() != 'gif':
+    print os.path.splitext(img.filename)[1].lower()
+    if os.path.splitext(img.filename)[1].lower() != '.gif':
       wimg = wi.Image(filename=images.path(localname))
       wimg.transform(resize='1024x1024>')
       wimg.save(filename=images.path(localname))
@@ -71,6 +78,12 @@ def index():
     r.hmset(key, {'filename': localname,
       'description': desc,
       'inserted': now()})
+    ## ES
+    es.index(index=key,
+        doc_type=es_doctype,
+        id=key,
+        body={'desc': desc},
+        ignore=400)
     objects = get_ramens(0, 9)
     return f.render_template('list.html', objects=objects)
 
