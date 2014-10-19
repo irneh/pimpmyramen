@@ -3,7 +3,7 @@
 
 <!---Ramen Photos-->	
 <div id="main">
-  <div id="posts">
+  <div id="boxes">
 
   {% include "grid.html" %}
 
@@ -14,24 +14,32 @@
 <script type="text/javascript">
 var scroll = true;
 var nextPage = 1;
-$(window).scroll(function() {
-  if(scroll && $(window).scrollTop() + $(window).height() >= $(document).height()) {
-    scroll = false;
-    $('#loadmoreajaxloader').show();
-    $.ajax({
-      url: "/list/" + nextPage,
-      success: function(html) {
-        $('#loadmoreajaxloader').hide();
-        if(html) {
-          $("#posts").append(html);
-          nextPage++;
-          scroll = true;
+$("#boxes").waterfall({
+  itemClass: ".box",
+  minColCount: 2,
+  spacingHeight: 10,
+  resizeable: true,
+  ajaxCallback: function(success, end) {
+    if (scroll) {
+      scroll = false;
+      $('#loadmoreajaxloader').show();
+      $.ajax({
+        url: "/list/" + nextPage,
+        success: function(html) {
+          $('#loadmoreajaxloader').hide();
+          if(html) {
+            $("#boxes").append(html);
+            nextPage++;
+            scroll = true;
+          }
+          else {
+            $('#main').append('<center>No more Ramens to show.</center>');
+          }
         }
-        else {
-          $('#main').append('<center>No more Ramens to show.</center>');
-        }
-      }
-    });
+      });
+    success();
+    end();
+    };
   }
 });
 </script>

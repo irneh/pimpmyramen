@@ -1,7 +1,14 @@
+/* jq-waterfall */
+* { margin:0; }
+#boxes { margin:auto; position:relative; }
+.box { float:left; padding:10px; border:1px solid #ccc; background:#f7f7f7; box-shadow:0 0 8px #ccc; }
+.box:hover { box-shadow:0 0 10px #999; }
+.box img { width:200px; }
 body {
 	font-family: 'Montserrat', sans-serif;
 	background-color: #EEE;
 }
+/* end jq-waterfall */
 
 @media screen and (min-width: 687px) {
 	.header-large{
