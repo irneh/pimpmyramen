@@ -72,21 +72,20 @@ nav {
 
 #main {
 	background-color: #EEE;
-	width: 90%;
-	max-width: 1100px;
-	margin: 20px auto;
+	width: 93%;
+	min-width: 1000px;
+	max-width: 1200px;
+	margin: 30px auto;
 }
+
 
 #posts {
 	-webkit-column-count: 3;
-	-webkit-column-gap: 30px;
-	-webkit-column-fill: auto;
 	-moz-column-count: 3;
+	column-count: 3;		
+	-webkit-column-gap: 30px;
 	-moz-column-gap: 30px;
-	-moz-column-fill: auto;
-	column-count: 3;
 	column-gap: 30px;
-	column-fill: auto;	
 }
 
 .post {
@@ -121,19 +120,20 @@ nav {
 	margin: 0 0 0.5em 0;
 }
 
-@media (max-width: 650px) {
+@media screen and (min-width: 1280px) {
 	#posts {
-		-webkit-column-count: 2;
-		-moz-column-count: 2;
-		column-count: 2;
+		-webkit-column-count: 4;
+		-moz-column-count: 4;
+		column-count: 4;
 	}
 }
 
-@media (max-width: 400px) {
+@media screen and (max-width: 320px) {
 	#posts {
 		-webkit-column-count: 1;
 		-moz-column-count: 1;
 		column-count: 1;
+		max-width: 320px;
 	}
 }
 
