@@ -113,7 +113,7 @@ nav {
 	margin: 0 0 0.5em 0;
 }
 
-@media (min-width: 1280px) {
+@media screen and (min-width: 1280px) {
 	#posts {
 		-webkit-column-count: 4;
 		-moz-column-count: 4;
@@ -121,11 +121,12 @@ nav {
 	}
 }
 
-@media (max-width: 320px) {
+@media screen and (max-width: 320px) {
 	#posts {
 		-webkit-column-count: 1;
 		-moz-column-count: 1;
 		column-count: 1;
+		max-width: 320px;
 	}
 }
 
