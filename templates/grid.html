@@ -1,9 +1,9 @@
 {% for object in objects %}
-  <li class="post">
+  <div class="post">
   <a href="/detail/{{object.id}}">
-    <img src= "{{ object.url }}" style="width: 230px; height: 200px;"></img>
+    <img src= "{{ object.url }}"></img>
   </a>
-    <p>Ramen {{ object.id }}</p>
-    <p class="description">{{ object.description }}</p>
-  </li>
+    <h4>Ramen {{ object.id }}</h4>
+    <p>{{ object.description }}</p>
+  </div>
 {% endfor %}
