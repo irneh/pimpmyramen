@@ -37,10 +37,11 @@ def get_ramens(first, last):
   objects = []
   for key in keys:
     ramen = r.hgetall(key)
-    id = key.split(':')[1]
-    url = img_url(ramen['filename'])
-    description = 'description' in ramen.keys() and ramen['description'] or ''
-    objects.append({'id': id, 'url': url, 'description': description})
+    if ramen:
+      id = key.split(':')[1]
+      url = img_url(ramen['filename'])
+      description = 'description' in ramen.keys() and ramen['description'] or ''
+      objects.append({'id': id, 'url': url, 'description': description})
   return objects
 
 @app.route('/', methods=['GET', 'POST'])
@@ -68,7 +69,7 @@ def index():
     ## Store in DB
     key = 'ramen:' + str(r.incr('key'))
     r.lpush('keys', key)
-    r.lpush('ramens', localname)
+    r.lpush('ramens', localname) # DELETE?
     r.hmset(key, {'filename': localname,
       'description': desc,
       'inserted': now()})
@@ -93,6 +94,12 @@ def detail(index):
     return f.render_template('detail.html', ramen=ramen)
   else:
     return "Not found.", 404
+
+@app.route('/del/<index>')
+def dell(index):
+  ## DB
+  key = 'ramen:' + index
+  print key
 
 if __name__ == '__main__':
   app.run()
