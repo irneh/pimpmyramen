@@ -1,15 +1,7 @@
-/* jq-waterfall */
-* { margin:0; }
-#boxes { margin:auto; position:relative; }
-.box { float:left; padding:10px; border:1px solid #ccc; background:#f7f7f7; box-shadow:0 0 8px #ccc; }
-.box:hover { box-shadow:0 0 10px #999; }
-.box img { width:200px; }
 body {
 	font-family: 'Montserrat', sans-serif;
 	background-color: #EEE;
 }
-/* end jq-waterfall */
-
 @media screen and (min-width: 687px) {
 	.header-large{
 		background: #f6ebb8 url(../images/header-bg.png);
@@ -70,72 +62,37 @@ nav {
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);	
 }
 
-#main {
+#boxes{
+	margin: 30px auto;	
 	background-color: #EEE;
-	width: 93%;
-	min-width: 1000px;
-	max-width: 1200px;
-	margin: 30px auto;
+	position: relative;
 }
 
-
-#posts {
-	-webkit-column-count: 3;
-	-moz-column-count: 3;
-	column-count: 3;		
-	-webkit-column-gap: 30px;
-	-moz-column-gap: 30px;
-	column-gap: 30px;
-}
-
-.post {
-	display: inline-block;
-	width: 100%;
+.box {
+	float: left;
 	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.25);
-	/*Prevent content from breaking apart in column flow*/
-	-webkit-column-break-inside: avoid;
-	-moz-column-break-inside: avoid;
-	column-break-inside: avoid;
-	margin: 0 0 20px 0;
-	padding: 15px;
-	padding-bottom: 5px;
-	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-	opacity: 1;
+	border: 1px solid #ccc ;
+	padding: 10px;
+	width: 220px;
 }
 
-.post img {
+.box img{
 	width: 100%;
 }
 
-.post h4 {
+.box h4 {
 	color: #c7b673;
 	text-align:left;
 	text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.4);
 	margin: 0.5em 0;	
 }
 
-.post p {
+.box p {
 	color: #666;
 	font-size: 0.78571em; /*About 11px*/
 	margin: 0 0 0.5em 0;
 }
 
-@media screen and (min-width: 1280px) {
-	#posts {
-		-webkit-column-count: 4;
-		-moz-column-count: 4;
-		column-count: 4;
-	}
-}
-
-@media screen and (max-width: 320px) {
-	#posts {
-		-webkit-column-count: 1;
-		-moz-column-count: 1;
-		column-count: 1;
-		max-width: 320px;
-	}
-}
 
 footer {
 	background-color:#f6ebb8;	

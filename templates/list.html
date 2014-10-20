@@ -2,21 +2,20 @@
 {% block content %}
 
 <!---Ramen Photos-->	
-<div id="main">
   <div id="boxes">
 
   {% include "grid.html" %}
 
   </div>
-<div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
-</div>
+
+  <div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
 
 <script type="text/javascript">
 var scroll = true;
 var nextPage = 1;
 $("#boxes").waterfall({
   itemClass: ".box",
-  minColCount: 2,
+  minColCount: 1,
   spacingHeight: 10,
   resizeable: true,
   ajaxCallback: function(success, end) {
@@ -33,7 +32,7 @@ $("#boxes").waterfall({
             scroll = true;
           }
           else {
-            $('#main').append('<center>No more Ramens to show.</center>');
+            $('#boxes').append('<center>No more Ramens to show.</center>');
           }
         }
       });
