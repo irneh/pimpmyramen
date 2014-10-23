@@ -84,7 +84,7 @@ def list(index):
    if ramens:
      return f.render_template('grid.html', objects=ramens)
    else:
-     return ""
+     return "No more Ramens.", 400
 
 @app.route('/detail/<index>', methods=['GET'])
 def detail(index):
@@ -95,8 +95,8 @@ def detail(index):
   else:
     return "Not found.", 404
 
-@app.route('/del/<index>')
-def dell(index):
+@app.route('/delete/<index>')
+def delete(index):
   ## DB
   key = 'ramen:' + index
   print key

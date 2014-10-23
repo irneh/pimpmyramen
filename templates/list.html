@@ -11,34 +11,41 @@
   <div id="loadmoreajaxloader" style="display:none;"><center><img src="/static/images/ajax-loader.gif" /></center></div>
 
 <script type="text/javascript">
-var scroll = true;
+var canScroll = true;
 var nextPage = 1;
-$("#boxes").waterfall({
-  itemClass: ".box",
-  minColCount: 1,
-  spacingHeight: 10,
-  resizeable: true,
-  ajaxCallback: function(success, end) {
-    if (scroll) {
-      scroll = false;
-      $('#loadmoreajaxloader').show();
-      $.ajax({
-        url: "/list/" + nextPage,
-        success: function(html) {
-          $('#loadmoreajaxloader').hide();
-          if(html) {
-            $("#boxes").append(html);
-            nextPage++;
-            scroll = true;
-          }
-          else {
-            $('#boxes').append('<center>No more Ramens to show.</center>');
-          }
-        }
-      });
-    success();
-    end();
-    };
+$('#boxes').waterfall({
+  itemCls: 'box',
+  checkImagesLoaded: false,
+  dataType: 'html',
+  debug: true,
+  checkImagesLoaded: false,
+  path: function(page) {
+    return '/list/' + nextPage;
+  },
+  callbacks: {
+    loadingStart: function($loading) {
+      if (!canScroll) {
+        console.log('end!');
+        isBeyondMaxPage = true;
+      }
+      $loading.show();
+    },
+    loadingFinished: function($loading, isBeyondMaxPage) {
+      if ( !isBeyondMaxPage ) {
+        $loading.fadeOut();
+        nextPage++;
+      }
+      else {
+        $loading.remove();
+      }
+    },
+    loadingError: function($message, xhr) {
+      $message.html(xhr.responseText);
+    },
+    renderData: function (data, dataType) {
+      canScroll = false;
+      return data;
+    }
   }
 });
 </script>
